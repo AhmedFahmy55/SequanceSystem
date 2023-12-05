@@ -17,6 +17,9 @@ public class SequanceController : MonoBehaviour
 
     private IEnumerator ExcuteSequance()
     {
+        //if no action it soulkdnt do anything by default cus foreach won excute but wahtever :)
+        if (actions.Count == 0) yield break;
+        
         foreach (var action in actions)
         {
             action.OnComplete += SequanceAction_OnComplete;
@@ -27,6 +30,7 @@ public class SequanceController : MonoBehaviour
                 yield return null;
             }
             souldContinue = false;
+            action.OnComplete -= SequanceAction_OnComplete;
         }
     }
 

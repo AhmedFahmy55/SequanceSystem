@@ -40,6 +40,7 @@ public class AnimationAction : SequanceAction
 
     private IEnumerator WaitAnimation()
     {
+        Debug.Log("animation duration is " + _animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         OnComplete?.Invoke();
     }

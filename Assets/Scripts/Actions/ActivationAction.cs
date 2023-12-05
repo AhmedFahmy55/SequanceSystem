@@ -13,6 +13,13 @@ public class ActivationAction : SequanceAction
 
     public override void Excute()
     {
+        //skip if there is no object
+        if(objectToToggleActivationOn == null)
+        {
+            OnComplete?.Invoke();
+            return;
+        }
+
         objectToToggleActivationOn.SetActive(objectActivation);
         OnComplete?.Invoke();
     }
