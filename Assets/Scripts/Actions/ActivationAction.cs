@@ -9,6 +9,7 @@ public class ActivationAction : SequanceAction
 
     [SerializeField] private GameObject objectToToggleActivationOn;
     [SerializeField] private bool objectActivation;
+    [SerializeField] private float activationDelay;
 
 
     public override void Excute()
@@ -20,6 +21,12 @@ public class ActivationAction : SequanceAction
             return;
         }
 
+        StartCoroutine(ToggleObjectActivation());
+    }
+
+    private IEnumerator ToggleObjectActivation()
+    {
+        yield return new WaitForSeconds(activationDelay);
         objectToToggleActivationOn.SetActive(objectActivation);
         OnComplete?.Invoke();
     }

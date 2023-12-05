@@ -36,6 +36,7 @@ public class SequanceController : MonoBehaviour
 
     private void SequanceAction_OnComplete()
     {
+        Debug.Log("current Action completed");
         souldContinue = true;
     }
 }

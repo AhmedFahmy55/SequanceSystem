@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraMovementAction :  SequanceAction
 {
-
+    [SerializeField] private Transform transformToMove;
     [SerializeField] private Transform pointA;
     [SerializeField] private Transform pointB;
     [SerializeField] private float duration;
@@ -32,7 +32,9 @@ public class CameraMovementAction :  SequanceAction
             return;
         }
 
-        transform.position = Vector3.Lerp(pointA.position, pointB.position, _passedTime/duration);
+        transformToMove.position = Vector3.Lerp(pointA.position, pointB.position, _passedTime/duration);
+        transformToMove.rotation = Quaternion.Lerp(pointA.rotation,pointB.rotation, _passedTime/duration);
+
         _passedTime += Time.deltaTime;
 
     }

@@ -40,8 +40,30 @@ public class AnimationAction : SequanceAction
 
     private IEnumerator WaitAnimation()
     {
-        Debug.Log("animation duration is " + _animator.GetCurrentAnimatorStateInfo(0).length);
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        //yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while(GetNormalizedTime() < 1)
+        {
+            yield return null;
+        }
+
         OnComplete?.Invoke();
+    }
+
+    private float GetNormalizedTime()
+    {
+        AnimatorStateInfo currentInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo nextInfo = _animator.GetNextAnimatorStateInfo(0);
+
+        if (_animator.IsInTransition(0) && nextInfo.IsTag("Anim"))
+        {
+            return nextInfo.normalizedTime;
+        }
+        else if (!_animator.IsInTransition(0) && currentInfo.IsTag("Anim"))
+        {
+
+            return currentInfo.normalizedTime;
+        }
+        else return 0f;
+
     }
 }
